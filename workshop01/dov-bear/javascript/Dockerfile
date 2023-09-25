@@ -1,6 +1,9 @@
 FROM node:20
 
-LABEL name="myapp"
+ARG INSTANCE_NAME="myapp"
+ARG INSTANCE_HASH="1234567890"
+
+LABEL name=${INSTANCE_NAME}
 
 ARG APP_DIR=/app
 # mkdir /app && cd /app
@@ -17,8 +20,8 @@ RUN npm ci
 # End of build
 
 ENV PORT=3000
-ENV INSTANCE_NAME="myapp"
-ENV INSTANCE_HASH="1234567890"
+ENV INSTANCE_NAME=${INSTANCE_NAME}
+ENV INSTANCE_HASH=${INSTANCE_HASH}
 EXPOSE ${PORT}
 
 ENTRYPOINT [ "node", "main.js" ]
