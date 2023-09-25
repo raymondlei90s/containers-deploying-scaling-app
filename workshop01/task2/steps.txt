@@ -1,0 +1,7 @@
+docker network create mynet
+docker volume create myvol
+
+docker run --platform linux/amd64 -d -p 8080:3000 -e DB_HOST=localhost -e DB_USER=root -e DB_PASSWORD=changeit --network mynet stackupiss/northwind-app:v1
+
+# Having this error for the image below: "runtime: failed to create new OS thread (have 2 already; errno=22)"
+docker run --platform linux/amd64 -d -v myvol:/var/lib/mysql --network mynet stackupiss/northwind-db:v1 
