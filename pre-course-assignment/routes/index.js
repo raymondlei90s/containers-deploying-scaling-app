@@ -24,4 +24,9 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: Quotes[getRandomNumber(5)] });
 });
 
+router.post("/", function (req, res, next) {
+  console.log("#################", JSON.stringify(req.body));
+  res.render("index", { title: Quotes[getRandomNumber(5)] });
+});
+
 module.exports = router;
