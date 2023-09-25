@@ -17,6 +17,8 @@ RUN npm ci
 # End of build
 
 ENV PORT=3000
+ENV INSTANCE_NAME="myapp"
+ENV INSTANCE_HASH="1234567890"
 EXPOSE ${PORT}
 
 ENTRYPOINT [ "node", "main.js" ]
