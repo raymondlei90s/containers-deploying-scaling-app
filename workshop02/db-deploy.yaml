@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bggdb-deploy
+  namespace: bggns
+  labels:
+    app: bgg
+    tied: database
+    name: bggdb-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bgg
+      tied: database
+      name: bggdb-po
+  template:
+    metadata:
+      name: bggdb-po
+      labels:
+        app: bgg
+        tied: database
+        name: bggdb-po
+    spec:
+      containers:
+        - name: dov-container
+          image: stackupiss/bgg-database:v1 # TODO: Use hash instead of tag
+          imagePullPolicy: IfNotPresent # Always if tag is latest
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bggdb-svc
+  namespace: bggns
+  labels:
+    app: bgg
+    tied: database
+    name: bggdb-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: bgg
+    tied: database
+    name: bggdb-po
+  ports:
+    - port: 3306 # Service port
+      protocol: TCP
+      targetPort: 3306 # Container port
+      # nodePort: 30000 # Only for NodePort type, Optional it will auto assign if not specified
