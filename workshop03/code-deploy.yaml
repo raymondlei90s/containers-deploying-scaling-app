@@ -33,7 +33,7 @@ spec:
 
           volumeMounts:
             - name: code-vol
-              mountPath: /config
+              mountPath: /config/workspace
           envFrom:
             - configMapRef:
                 name: code-cm
