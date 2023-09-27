@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bggdb-pvc
+  namespace: bggns
+  labels:
+    app: bgg
+    name: bggdb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce # Other options are: ReadWriteMany, ReadOnlyMany, it will fail if the storage class does not support the access mode
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: do-block-storage

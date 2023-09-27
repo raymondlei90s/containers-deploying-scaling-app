@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dov-ing
+  namespace: dovns
+  labels:
+    app: dov
+    name: dov-ing
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: dov-139.59.219.226.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix # Other options are: Exact, ImplementationSpecific
+            backend:
+              service:
+                name: dov-svc
+                port:
+                  number: 8080
